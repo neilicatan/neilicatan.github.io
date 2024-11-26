@@ -138,11 +138,16 @@ $indexHouses = new Index();
             <div class="lg:col-span-4 rounded-xl space-y-8 bg-white text-center py-8 px-4 dark:bg-slate-900 sm:col-span-6">
                 <div class="space-y-1.5">
                     <p>
-                        This site is really cool and very helpful for us boarders
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
                     </p>
 
                     <p>
-                        I love this app bro holy shit
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
                     </p>
                 </div>
 
@@ -154,16 +159,16 @@ $indexHouses = new Index();
             <div class="lg:col-span-4 rounded-xl space-y-8 bg-white text-center py-8 px-4 dark:bg-slate-900 sm:col-span-6">
                 <div class="space-y-1.5">
                     <p>
-                        nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga
-                        nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga
-                        nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
                     </p>
 
                     <p>
-                    nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga
-                    nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga
-                    nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga
-                    nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga nigga
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
                     </p>
                 </div>
 
