@@ -66,7 +66,7 @@ class ViewTransactionHistory
                             <?= $transaction->payment_date ?>
                         </td>
                         <td class="py-2 px-4 border border-slate-600">
-                            ₦ <?= number_format($transaction->amount) ?>
+                            ₱ <?= number_format($transaction->amount) ?>
                         </td>
                         <td class="py-2 px-4 border border-slate-600">
                             <?= $transaction->property_id ?>
