@@ -138,11 +138,16 @@ $indexHouses = new Index();
             <div class="lg:col-span-4 rounded-xl space-y-8 bg-white text-center py-8 px-4 dark:bg-slate-900 sm:col-span-6">
                 <div class="space-y-1.5">
                     <p>
-                        This site is really cool and very helpful for us boarders
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
                     </p>
 
                     <p>
-                        I love this app bro holy shit
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
                     </p>
                 </div>
 
@@ -154,20 +159,21 @@ $indexHouses = new Index();
             <div class="lg:col-span-4 rounded-xl space-y-8 bg-white text-center py-8 px-4 dark:bg-slate-900 sm:col-span-6">
                 <div class="space-y-1.5">
                     <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae similique animi rem commodi reprehenderit
-                        numquam,
-                        ipsa nostrum vel nesciunt facilis.
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                        i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
                     </p>
 
                     <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae similique animi rem commodi reprehenderit
-                        numquam,
-                        ipsa nostrum vel nesciunt facilis.
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
+                    i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you i love you
                     </p>
                 </div>
 
                 <h3 class="header">
-                    Temple Precious Soye
+                    Saddam Hussein
                 </h3>
             </div>
 
