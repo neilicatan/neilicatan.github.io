@@ -55,9 +55,6 @@ $loginUser = new Login();
                 </a>
             </p>
 
-            <a class="text-rose-500 hover:text-rose-600 focus:text-rose-600 hover:underline hover:underline-offset-4 active:underline active:underline-offset-4" href="/forgot-password">
-                Forgot Password
-            </a>
 
         </div>
     </form>

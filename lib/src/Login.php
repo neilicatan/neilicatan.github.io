@@ -85,7 +85,7 @@ class Login
                 }
             }
         } else {
-            displayMessage("You need to sign in to access your dashboard");
+            displayMessage("You need to sign in to access your owner dashboard");
         }
     }
 }
