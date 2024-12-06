@@ -1002,6 +1002,10 @@ video {
   max-width: 100%;
 }
 
+.flex-1 {
+  flex: 1 1 0%;
+}
+
 .shrink {
   flex-shrink: 1;
 }
@@ -2074,11 +2078,6 @@ video {
   color: rgb(30 41 59 / var(--tw-text-opacity));
 }
 
-.hover\:text-rose-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(225 29 72 / var(--tw-text-opacity));
-}
-
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -2126,11 +2125,6 @@ video {
 .focus\:text-sky-600:focus {
   --tw-text-opacity: 1;
   color: rgb(2 132 199 / var(--tw-text-opacity));
-}
-
-.focus\:text-rose-600:focus {
-  --tw-text-opacity: 1;
-  color: rgb(225 29 72 / var(--tw-text-opacity));
 }
 
 .focus\:underline:focus {

@@ -114,7 +114,13 @@ class PropertyDetails
                             </h3>
                             <?= $house->description ?>
                         </div>
+                        <p class="grid place-content-center">
+            <a class="rounded-lg py-1.5 px-4 bg-sky-500 text-white hover:bg-sky-600 border border-sky-500 hover:ring-1 hover:ring-sky-500 ring-offset-2 active:ring-1 active:ring-sky-500 dark:ring-offset-slate-800" href="/map">
+                Explore more properties
+            </a>
+        </p>
                     </div>
+                    
 
                     <div class="sm:col-span-5 max-w-full [display:unset]">
                         <div class="sticky top-20">

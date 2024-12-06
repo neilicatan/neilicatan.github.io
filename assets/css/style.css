@@ -1192,7 +1192,9 @@ nav {
 .min-h-screen {
   min-height: 100vh;
 }
-
+.min-h-screen-map{
+  min-height: 95vh;
+}
 .min-h-full {
   min-height: 100%;
 }
@@ -1237,6 +1239,10 @@ nav {
 
 .max-w-full {
   max-width: 100%;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
 }
 
 .shrink {
@@ -2311,11 +2317,6 @@ nav {
   color: rgb(30 41 59 / var(--tw-text-opacity));
 }
 
-.hover\:text-rose-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(225 29 72 / var(--tw-text-opacity));
-}
-
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -2363,11 +2364,6 @@ nav {
 .focus\:text-sky-600:focus {
   --tw-text-opacity: 1;
   color: rgb(2 132 199 / var(--tw-text-opacity));
-}
-
-.focus\:text-rose-600:focus {
-  --tw-text-opacity: 1;
-  color: rgb(225 29 72 / var(--tw-text-opacity));
 }
 
 .focus\:underline:focus {
@@ -3021,4 +3017,5 @@ nav {
     --tw-border-opacity: 1;
     border-right-color: rgb(51 65 85 / var(--tw-border-opacity));
   }
+  
 }

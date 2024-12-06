@@ -39,6 +39,9 @@ if (!isset($_SESSION['user'])) {
     <link rel="preload" href="../assets/js/chart.min.js" as="script">
 
     <!-- Important stylesheets -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <link rel="stylesheet" href="../assets/css/tailwind-output.css?v=1.0.2">
     <link rel="stylesheet" href="../assets/css/style.css?v=1.0.2">
     <link rel="stylesheet" href="../assets/fonts/fonts.min.css">
