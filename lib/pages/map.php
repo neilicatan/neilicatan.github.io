@@ -23,7 +23,7 @@ use app\src\Login;
     <main class="flex-1 grid place-items-center w-full min-h-screen-map py-8 px-4 dark:bg-slate-900 dark:text-slate-400 lg:px-[30%]">
         <div class="bg-slate-100 py-8 px-4 w-full rounded-xl lg:px-12 dark:bg-slate-800" method="POST">
             <div class="map-container">
-                <div id="map" class="map" style="width: 100%; height: 600px;"></div>
+                <div id="map" class="map" style="width: 100%; height: 500px;"></div>
                 
             </div>
         </div>
