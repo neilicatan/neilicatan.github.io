@@ -57,7 +57,7 @@ class PropertyDetails
             header("Location: /404", true, 301);
         }
 
-        $getHouse = $this->con->select("id, img_1, img_2, img_3, img_4, img_5, title, price, description, location, type, owner_id", "properties", "WHERE id = ? AND link = ? AND status = 'available'", ...[$this->propertyID, $this->propertyName]);
+        $getHouse = $this->con->select("id, img_1, img_2, img_3, img_4, img_5, title, price, description, location, type, owner_id, latitude, longitude", "properties", "WHERE id = ? AND link = ? AND status = 'available'", ...[$this->propertyID, $this->propertyName]);
 
         // Check if there is any available apartment
         if ($getHouse->num_rows < 1) {
@@ -115,14 +115,15 @@ class PropertyDetails
                             <?= $house->description ?>
                         </div>
 
-                        
+
                         <p class="grid place-content-center">
-            <a class="rounded-lg py-1.5 px-4 bg-sky-500 text-white hover:bg-sky-600 border border-sky-500 hover:ring-1 hover:ring-sky-500 ring-offset-2 active:ring-1 active:ring-sky-500 dark:ring-offset-slate-800" href="/map">
-                Explore more properties
-            </a>
-        </p>
+                            <a class="rounded-lg py-1.5 px-4 bg-sky-500 text-white hover:bg-sky-600 border border-sky-500 hover:ring-1 hover:ring-sky-500 ring-offset-2 active:ring-1 active:ring-sky-500 dark:ring-offset-slate-800"
+                                href="/map.php?propertyID=<?= $house->id ?>">
+                                Check Map
+                            </a>
+                        </p>
                     </div>
-                    
+
 
                     <div class="sm:col-span-5 max-w-full [display:unset]">
                         <div class="sticky top-20">
@@ -183,7 +184,7 @@ class PropertyDetails
         $this->sendRequestMessage($ownerDetails);
     }
 
-    public function sendRequestMessage(string $recepientEmail) 
+    public function sendRequestMessage(string $recepientEmail)
     {
         if (isset($_POST['submit-request'])) {
 
@@ -243,7 +244,7 @@ class PropertyDetails
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
             $headers .= "From: {$this->setName()} {$this->setEmail()}";
-            
+
 
             if (mail($recepientEmail, $subject, $message, $headers)) {
                 displayMessage("Your message has been sent successfully. You would be contacted by the property owner as soon as possible. Thanks for using HousingQuest!");

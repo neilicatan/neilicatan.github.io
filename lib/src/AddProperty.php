@@ -19,6 +19,9 @@ class AddProperty
     private $propertyCategory;
     private $propertySummary;
     private $propertyDescription;
+    private $latitude;        // Added for Latitude
+    private $longitude;       // Added for Longitude
+
 
     public function __construct()
     {
@@ -73,6 +76,19 @@ class AddProperty
         return $this->propertyLocation = isset($_POST['property-location']) ? ucwords(strtolower(trim(strip_tags($_POST['property-location'])))) : "";
     }
 
+    // Sets the latitude field of a form
+    public function setLatitude(): string
+    {
+        return $this->latitude = isset($_POST['latitude']) ? $_POST['latitude'] : "";
+    }
+
+    // Sets the longitude field of a form
+    public function setLongitude(): string
+    {
+        return $this->longitude = isset($_POST['longitude']) ? $_POST['longitude'] : "";
+    }
+
+
     // Sets the property price field of a form
     public function setPropertyPrice(): string
     {
@@ -124,6 +140,8 @@ class AddProperty
                 $this->setPropertyCategory(),
                 $this->setPropertySummary(),
                 $this->setPropertyDescription(),
+                $this->setLatitude(),    // Added Latitude
+                $this->setLongitude()    // Added Longitude
             ];
             foreach ($fields as $field) {
                 if (is_empty($field)) {
@@ -199,7 +217,24 @@ class AddProperty
                 $propertyLink
             ];
 
-            $this->con->insert("properties", ["title", "location", "price", "type", "summary", "description", "index_img", "img_1", "img_2", "img_3", "img_4", "img_5", "owner_id", "link"], ...$propertyFields);
+            $this->con->insert("properties", [
+                "title",
+                "location",
+                "price",
+                "type",
+                "summary",
+                "description",
+                "latitude",          // Added Latitude
+                "longitude",         // Added Longitude
+                "index_img",
+                "img_1",
+                "img_2",
+                "img_3",
+                "img_4",
+                "img_5",
+                "owner_id",
+                "link"
+            ], ...$propertyFields);
 
             displayMessage("Property added successfully.", "text-emerald-500");
             header("Refresh: 2, /admin/properties", true, 301);

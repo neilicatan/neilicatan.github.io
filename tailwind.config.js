@@ -19,6 +19,9 @@ module.exports = {
 				"light-search-result":
 					"linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/search-result.jpg)",
 			},
+			minHeight: {
+				'screen-map': '91vh', // Add the custom min-height value
+			  },		
 		},
 	},
 	plugins: [

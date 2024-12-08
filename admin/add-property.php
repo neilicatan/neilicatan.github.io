@@ -6,6 +6,13 @@ use app\src\AddProperty;
 
 $addProperty = new AddProperty();
 ?>
+<?php
+// Check if location is passed from the map page
+$prefilledLocation = isset($_GET['location']) ? htmlspecialchars($_GET['location']) : '';
+$prefilledLatitude = isset($_GET['latitude']) ? htmlspecialchars($_GET['latitude']) : '';
+$prefilledLongitude = isset($_GET['longitude']) ? htmlspecialchars($_GET['longitude']) : '';
+?>
+
 
 <a class="text-sky-500 hover:text-sky-600 focus:text-sky-600 dark:text-sky-600 dark:hover:text-sky-700" href="/admin/properties">
     <i class="fr fi-rr-arrow-small-left"></i>
@@ -121,68 +128,92 @@ $addProperty = new AddProperty();
     </div>
 
     <div class="grid gap-4 lg:w-4/5 lg:mx-auto lg:gap-8 mt-8">
-        <h3 class="header text-xl">
-            <?php $addProperty->addNewProperty(); ?>
-        </h3>
+    <h3 class="header text-xl">
+        <?php $addProperty->addNewProperty(); ?>
+    </h3>
 
-        <div class="grid gap-4 sm:grid-cols-12">
-            <div class="sm:col-span-6">
-                <label class="block mb-1.5 ml-1" for="property-name">
-                    Property Name
-                </label>
+    <div class="grid gap-4 sm:grid-cols-12">
+        <div class="sm:col-span-6">
+            <label class="block mb-1.5 ml-1" for="property-name">
+                Property Name
+            </label>
 
-                <input class="rounded-lg input" type="text" placeholder="Property Name" name="property-name" id="property-name" autocomplete="off" required value="<?= $addProperty->setPropertyName() ?>" />
-            </div>
-
-            <div class="sm:col-span-6">
-                <label class="block mb-1.5 ml-1" for="location">
-                    Property Location
-                </label>
-
-                <input class="rounded-lg input" type="text" placeholder="Property Location" name="property-location" id="location" required autocomplete="off" value="<?= $addProperty->setPropertyLocation() ?>" />
-            </div>
-
-            <div class="sm:col-span-6">
-                <label class="block mb-1.5 ml-1" for="price">
-                    Price
-                </label>
-
-                <input class="rounded-lg input" type="number" placeholder="Price" name="property-price" id="property-price" required autocomplete="off" value="<?= $addProperty->setPropertyPrice() ?>" />
-            </div>
-
-            <div class="sm:col-span-6">
-                <label class="block mb-1.5 ml-1" for="property-category">
-                    Property Category
-                </label>
-
-                <select class="form-select input rounded-lg border-none focus:ring-transparent w-full" name="property-category" id="property-category">
-                    <option class="bg-white dark:bg-transparent" value="For Rent">For Rent</option>
-                    <option class="bg-white dark:bg-transparent" value="For Sale">For Sale</option>
-                </select>
-            </div>
-
-            <div class="sm:col-span-6">
-                <label class="block mb-1.5 ml-1" for="property-summary">
-                    Property Summary
-                </label>
-
-                <textarea class="input rounded-lg" name="property-summary" id="property-summary" rows="4" placeholder="Property Summary"><?= $addProperty->setPropertySummary() ?></textarea>
-            </div>
-
-            <div class="sm:col-span-6">
-                <label class="block mb-1.5 ml-1" for="property-description">
-                    Property Description
-                </label>
-
-                <textarea class="input rounded-lg" name="property-description" id="property-description" rows="4" placeholder="Property Description"><?= $addProperty->setPropertyDescription() ?></textarea>
-            </div>
-
-            <button class="bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 py-2 w-auto px-4 text-white rounded-lg sm:col-span-12 sm:mx-auto dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:bg-sky-700" type="submit" name="add-property">
-                Add Property
-            </button>
+            <input class="rounded-lg input" type="text" placeholder="Property Name" name="property-name" id="property-name" autocomplete="off" required value="<?= $addProperty->setPropertyName() ?>" />
         </div>
+
+        <div class="sm:col-span-6">
+    <label class="block mb-1.5 ml-1" for="location">
+        Property Location
+    </label>
+    
+    <input 
+        class="rounded-lg input" 
+        type="text" 
+        placeholder="Property Location" 
+        name="property-location" 
+        id="location" 
+        required 
+        autocomplete="off" 
+        value="<?= $prefilledLocation ?: $addProperty->setPropertyLocation() ?>" 
+    />
+    <!-- Hidden fields for latitude and longitude -->
+    <input type="hidden" name="latitude" id="latitude" value="<?= $prefilledLatitude ?>" />
+    <input type="hidden" name="longitude" id="longitude" value="<?= $prefilledLongitude ?>" />
+
+    <!-- Added Button -->
+    <button 
+        id="setLocationButton" 
+        class="bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 py-2 px-4 mt-2 text-white rounded-lg w-full sm:w-auto dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:bg-sky-700"
+        type="button" 
+        onclick="window.location.href = '/admin/admin-map.php?location=' + encodeURIComponent(document.getElementById('location').value);"
+    >
+        Set Location on Map
+    </button>
+</div>
+
+        <div class="sm:col-span-6">
+            <label class="block mb-1.5 ml-1" for="price">
+                Price
+            </label>
+
+            <input class="rounded-lg input" type="number" placeholder="Price" name="property-price" id="property-price" required autocomplete="off" value="<?= $addProperty->setPropertyPrice() ?>" />
+        </div>
+
+        <div class="sm:col-span-6">
+            <label class="block mb-1.5 ml-1" for="property-category">
+                Property Category
+            </label>
+
+            <select class="form-select input rounded-lg border-none focus:ring-transparent w-full" name="property-category" id="property-category">
+                <option class="bg-white dark:bg-transparent" value="For Rent">For Rent</option>
+                <option class="bg-white dark:bg-transparent" value="For Sale">For Sale</option>
+            </select>
+        </div>
+
+        <div class="sm:col-span-6">
+            <label class="block mb-1.5 ml-1" for="property-summary">
+                Property Summary
+            </label>
+
+            <textarea class="input rounded-lg" name="property-summary" id="property-summary" rows="4" placeholder="Property Summary"><?= $addProperty->setPropertySummary() ?></textarea>
+        </div>
+
+        <div class="sm:col-span-6">
+            <label class="block mb-1.5 ml-1" for="property-description">
+                Property Description
+            </label>
+
+            <textarea class="input rounded-lg" name="property-description" id="property-description" rows="4" placeholder="Property Description"><?= $addProperty->setPropertyDescription() ?></textarea>
+        </div>
+
+        <button class="bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 py-2 w-auto px-4 text-white rounded-lg sm:col-span-12 sm:mx-auto dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:bg-sky-700" type="submit" name="add-property">
+            Add Property
+        </button>
     </div>
+</div>
 </form>
+
+
 
 <script src="../assets/editor/ckeditor.js"></script>
 <script src="../assets/js/editor.js"></script>
