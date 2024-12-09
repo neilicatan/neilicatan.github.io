@@ -20,8 +20,8 @@ module.exports = {
 					"linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/search-result.jpg)",
 			},
 			minHeight: {
-				'screen-map': '95vh',  // This will create a custom utility for min-height: 95vh
-			  },
+				'screen-map': '91vh', // Add the custom min-height value
+			  },		
 		},
 	},
 	plugins: [
