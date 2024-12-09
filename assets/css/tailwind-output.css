@@ -964,6 +964,10 @@ video {
   min-height: 60vh;
 }
 
+.min-h-screen-map {
+  min-height: 95vh;
+}
+
 .w-full {
   width: 100%;
 }

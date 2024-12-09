@@ -1192,15 +1192,17 @@ nav {
 .min-h-screen {
   min-height: 100vh;
 }
-.min-h-screen-map{
-  min-height: 95vh;
-}
+
 .min-h-full {
   min-height: 100%;
 }
 
 .min-h-\[60vh\] {
   min-height: 60vh;
+}
+
+.min-h-screen-map {
+  min-height: 95vh;
 }
 
 .w-full {
@@ -3017,5 +3019,4 @@ nav {
     --tw-border-opacity: 1;
     border-right-color: rgb(51 65 85 / var(--tw-border-opacity));
   }
-  
 }

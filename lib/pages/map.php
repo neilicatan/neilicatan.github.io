@@ -32,7 +32,7 @@ use app\src\Login;
 <?php require_once("./includes/Footer.php"); ?>
 <script>
     // Initialize map
-    const map = L.map('map').setView([7.103035, 124.835257], 18); // set center and zoom level
+    const map = L.map('map').setView([7.107510, 124.825311], 15); // set center and zoom level
 
     // OSM tile layer
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
