@@ -140,8 +140,8 @@ class AddProperty
                 $this->setPropertyCategory(),
                 $this->setPropertySummary(),
                 $this->setPropertyDescription(),
-                $this->setLatitude(),    // Added Latitude
-                $this->setLongitude()    // Added Longitude
+                $this->setLatitude(),   
+                $this->setLongitude()   
             ];
             foreach ($fields as $field) {
                 if (is_empty($field)) {
@@ -224,8 +224,8 @@ class AddProperty
                 "type",
                 "summary",
                 "description",
-                "latitude",          // Added Latitude
-                "longitude",         // Added Longitude
+                "latitude",          
+                "longitude",         
                 "index_img",
                 "img_1",
                 "img_2",
