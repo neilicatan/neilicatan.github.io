@@ -2,7 +2,6 @@
 
 use app\assets\DB;
 
-// Start the session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -26,21 +25,21 @@ require_once("./includes/Header.php");
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 <?php
-// Retrieve GET parameters
+// get property id sa url
 $propertyID = isset($_GET['propertyID']) ? $_GET['propertyID'] : null;
 
 
-// Validate the presence of required parameters
+// validate property id
 if (is_empty($propertyID)) {
     displayMessage("Invalid property details provided.", "text-rose-500");
     header("Refresh: 2, /404", true, 301);
     exit();
 }
 
-// Initialize DB connection
+// initialize db 
 $con = DB::getInstance();
 
-// Fetch property's latitude and longitude from the database
+// fetch property details
 $getProperty = $con->select(
     "latitude, longitude, title",
     "properties",
@@ -48,7 +47,7 @@ $getProperty = $con->select(
     ...[$propertyID]
 );
 
-// Check if the property exists
+// check if naa property
 if ($getProperty->num_rows < 1) {
     displayMessage("Property not found.", "text-rose-500");
     header("Refresh: 2, /404", true, 301);
@@ -57,7 +56,7 @@ if ($getProperty->num_rows < 1) {
 
 $property = $getProperty->fetch_object();
 
-// Ensure latitude and longitude are available
+// check if naa longitude ug latitude
 if (is_empty($property->latitude) || is_empty($property->longitude)) {
     displayMessage("Location data is not available for this property.", "text-rose-500");
     header("Refresh: 2, /property-details.php?propertyID={$propertyID}", true, 301);
@@ -70,14 +69,9 @@ $propertyTitle = addslashes($property->title); // Escape quotes for JavaScript
 
 ?>
 
-
-
-<!-- Page Wrapper -->
 <div class="page-wrapper">
-    <!-- Map Container -->
     <div class="bg-slate-100 py-0 px-4 w-full rounded-none dark:bg-slate-800">
         <div class="map-container">
-            <!-- Use vh units to make the map full height on all screen sizes -->
             <div id="map" class="map w-full h-[100vh]"></div>
         </div>
     </div>
@@ -85,39 +79,39 @@ $propertyTitle = addslashes($property->title); // Escape quotes for JavaScript
 
 <?php require_once("./includes/Footer.php"); ?>
 
-<!-- Map Initialization Script -->
+<!-- map shit -->
 <script>
-    // Property Coordinates
+    // property Coordinates
     const latitude = <?= json_encode($latitude) ?>;
     const longitude = <?= json_encode($longitude) ?>;
     const propertyTitle = <?= json_encode($propertyTitle) ?>;
 
-    // Initialize the map centered on the property's coordinates
+    // initialize the map centered on the property's coordinates
     const map = L.map('map').setView([latitude, longitude], 18);
 
-    // Add OpenStreetMap tiles
+    // add OpenStreetMap tiles
     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    // Add a marker for the property's location
+    // add marker for the property's location
     L.marker([latitude, longitude]).addTo(map)
         .bindPopup("<b>" + propertyTitle + "</b>")
         .openPopup();
 
-    // Optional: Add geocoder control if you want users to search for locations
+    // geocoder control to search for locations
     const geocoder = L.Control.geocoder().addTo(map);
 
-    // Event listener for location selection via geocoder (optional)
+    // event listener for geocoder
     geocoder.on('markgeocode', function(e) {
         const lat = e.geocode.center.lat;
         const lon = e.geocode.center.lng;
 
-        // Update the map view to the new location
+        // update to view new location
         map.setView([lat, lon], 18);
 
-        // Add or update the marker
+        // add or update marker
         if (window.currentMarker) {
             map.removeLayer(window.currentMarker);
         }
@@ -126,7 +120,7 @@ $propertyTitle = addslashes($property->title); // Escape quotes for JavaScript
             .openPopup();
     });
 
-    // Ensure map resizes when the window is resized
+    // resize map kung resize winodw
     window.addEventListener('resize', function() {
         map.invalidateSize();
     });
