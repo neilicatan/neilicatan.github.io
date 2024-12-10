@@ -1,4 +1,4 @@
-<?php $pageTitle = "HousingQuest | Payment History"; ?>
+<?php $pageTitle = "EasyBoard | Payment History"; ?>
 <?php require_once("./includes/Header.php"); ?>
 <?php
 

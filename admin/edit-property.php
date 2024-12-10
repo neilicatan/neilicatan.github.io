@@ -1,4 +1,4 @@
-<?php $pageTitle = "HousingQuest | Edit Property"; ?>
+<?php $pageTitle = "EasyBoard | Edit Property"; ?>
 <?php require_once("./includes/Header.php"); ?>
 <?php
 

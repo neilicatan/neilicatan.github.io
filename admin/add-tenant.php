@@ -1,4 +1,4 @@
-<?php $pageTitle = "HousingQuest | Add Tenant"; ?>
+<?php $pageTitle = "EasyBoard | Add Tenant"; ?>
 <?php require_once("./includes/Header.php"); ?>
 <?php
 

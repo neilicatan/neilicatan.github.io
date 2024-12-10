@@ -1,4 +1,4 @@
-<?php $pageTitle = "HousingQuest | View Property Details"; ?>
+<?php $pageTitle = "EasyBoard | View Property Details"; ?>
 <?php require_once("./includes/Header.php"); ?>
 <?php
 
@@ -14,10 +14,7 @@ $house = new AdminViewProperty();
     </a>
 
     <div class="flex items-center gap-2 flex-wrap">
-        <a class="inline-block rounded-lg py-1.5 px-3 text-emerald-600 bg-emerald-200 hover:bg-emerald-300 hover:text-emerald-700 hover:ring-1 hover:ring-emerald-500 ring-offset-2 active:ring-1 active:ring-emerald-500 dark:ring-offset-slate-800 font-medium" href="/admin/edit-property?propertyID=<?= $house->getpropertyID() ?>&propertyName=<?= $house->getpropertyName() ?>">
-            <i class="fr fi-rr-edit relative top-0.5 pr-0.5"></i>
-            Edit Property
-        </a>
+        
 
         <button class="inline-block rounded-lg py-1.5 px-3 text-rose-500 bg-rose-200 hover:bg-rose-300 hover:ring-1 hover:ring-rose-500 ring-offset-2 active:ring-1 active:ring-rose-500 dark:ring-offset-slate-800 font-medium delete-property" type="button">
             <i class="fr fi-rr-trash relative top-0.5 pr-0.5"></i>

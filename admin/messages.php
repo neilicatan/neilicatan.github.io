@@ -1,4 +1,4 @@
-<?php $pageTitle = "HousingQuest | Messages"; ?>
+<?php $pageTitle = "EasyBoard | Messages"; ?>
 <?php require_once("./includes/Header.php"); ?>
 
 <h3 class="header text-xl -mb-4">

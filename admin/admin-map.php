@@ -2,7 +2,6 @@
 <?php require_once("./includes/Header.php"); ?>
 <?php use app\src\save_location; ?>
 
-
 <!-- Include Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -32,19 +31,19 @@
     </div>
 
     <!-- Form for Submitting Data -->
-<form id="locationForm" action="/admin/add-property.php" method="GET" class="mt-4">
-    <label class="block mb-2" for="location_name">Location Name:</label>
-    <input class="input w-full p-2 rounded-md border border-gray-300" type="text" id="location_name" name="location" required placeholder="Location Name">
+    <form id="locationForm" action="/admin/add-property.php" method="GET" class="mt-4">
+        <label class="block mb-2" for="location_name">Location Name:</label>
+        <input class="input w-full p-2 rounded-md border border-gray-300" type="text" id="location_name" name="location" required placeholder="Location Name">
 
-    <!-- Hidden fields for latitude and longitude -->
-    <input type="hidden" id="latitude" name="latitude">
-    <input type="hidden" id="longitude" name="longitude">
+        <!-- Hidden fields for latitude and longitude -->
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
 
-    <!-- Submit Button -->
-    <button class="bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white py-2 px-4 rounded-md mt-4" type="submit">
-        Save and Return
-    </button>
-</form>
+        <!-- Submit Button -->
+        <button class="bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white py-2 px-4 rounded-md mt-4" type="submit">
+            Save and Return
+        </button>
+    </form>
 
 </div>
 
@@ -100,5 +99,37 @@
                 document.getElementById('location_name').value = searchQuery;
             }
         });
+    });
+
+    // Add a click event listener to the map to place a marker at the clicked location
+    map.on('click', function (e) {
+        const lat = e.latlng.lat;
+        const lon = e.latlng.lng;
+
+        // Reverse geocoding to get the location name from coordinates
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`)
+            .then(response => response.json())
+            .then(data => {
+                const locationName = data.display_name;  // Location name from reverse geocoding
+
+                // If a marker exists, remove it
+                if (currentMarker) {
+                    map.removeLayer(currentMarker);
+                }
+
+                // Add a new marker at the clicked location
+                currentMarker = L.marker([lat, lon]).addTo(map);
+
+                // Optionally, show a popup with the address
+                currentMarker.bindPopup(locationName).openPopup();
+
+                // Update the hidden latitude and longitude fields
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lon;
+
+                // Update the location name input field with the fetched location name
+                document.getElementById('location_name').value = locationName;
+            })
+            .catch(err => console.error('Error fetching location name:', err));
     });
 </script>
