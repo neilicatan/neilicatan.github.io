@@ -3,6 +3,12 @@
 namespace app\src;
 
 use app\assets\DB;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './vendor/phpmailer/phpmailer/src/Exception.php';
+require './vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require './vendor/phpmailer/phpmailer/src/SMTP.php';
 
 class Register
 {
@@ -45,70 +51,58 @@ class Register
     {
         if (isset($_POST['submit'])) {
 
-            // Check if a name was entered and displays the appropriate feedback
-            if (is_empty($this->setName())) {
+            // Validate form inputs
+            $name = $this->setName();
+            $phoneNumber = $this->setPhoneNumber();
+            $email = $this->setEmail();
+            $password = $this->setPassword();
+
+            if (empty($name)) {
                 displayMessage("<span class='font-bold'>Name</span> field is required.", "text-rose-500");
-
                 return;
             }
 
-            // Check if a phone number was entered and displays the appropriate feedback
-            if (is_empty($this->setPhoneNumber())) {
+            if (empty($phoneNumber)) {
                 displayMessage("<span class='font-bold'>Phone Number</span> field is required.", "text-rose-500");
-
                 return;
             }
 
-            // Check if a email was entered and displays the appropriate feedback
-            if (is_empty($this->setEmail())) {
-                displayMessage("<span class='font-bold'>Email</span> field is required.", "text-rose-500");
-
+            if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                displayMessage("<span class='font-bold'>Email</span> is required or invalid.", "text-rose-500");
                 return;
-            } else {
-                // Checks if the entered email is a valid one and displays the appropriate feedback
-                if (!filter_var($this->setEmail(), FILTER_VALIDATE_EMAIL)) {
-                    displayMessage("Invalid email format. Please use a valid email.", "text-rose-500");
-
-                    return;
-                }
             }
 
-            // Check if a password was entered and displays the appropriate feedback
-            if (is_empty($this->setPassword())) {
+            if (empty($password)) {
                 displayMessage("<span class='font-bold'>Password</span> field is required.", "text-rose-500");
-
                 return;
             }
 
             $params = [
-                $this->setName(),
-                $this->setPhoneNumber(),
-                $this->setEmail(),
-                $this->setPassword(),
+                $name,
+                $phoneNumber,
+                $email,
+                $password,
             ];
 
-            // Params to check if the choosen phone number or email already exists and give appropriate feedback
+            // Params to check if the chosen phone number or email already exists and give appropriate feedback
             $userCheckParams = [
-                $this->setPhoneNumber(),
-                $this->setEmail(),
+                $phoneNumber,
+                $email,
             ];
             $checkIfUserExists = $this->con->select("phone, email", "landlords", "WHERE phone = ? OR email = ?", ...$userCheckParams);
 
             if ($checkIfUserExists->num_rows > 0) {
                 $userExists = $checkIfUserExists->fetch_object();
 
-                if ($userExists->phone === $this->setPhoneNumber() && $userExists->email === $this->setEmail()) {
+                if ($userExists->phone === $phoneNumber && $userExists->email === $email) {
                     displayMessage("<span class='font-bold'>Phone Number and Email</span> already exists.", "text-rose-500");
-
                     return;
-                } else if ($userExists->email === $this->setEmail()) {
+                } else if ($userExists->email === $email) {
                     displayMessage("<span class='font-bold'>Email</span> is already taken. Please use another one.", "text-rose-500");
-
                     return;
                 } else {
-                    if ($userExists->phone === $this->setPhoneNumber()) {
+                    if ($userExists->phone === $phoneNumber) {
                         displayMessage("This <span class='font-bold'>Phone Number</span> already exists.", "text-rose-500");
-
                         return;
                     }
                 }
@@ -123,29 +117,32 @@ class Register
             $_SESSION['loggedUser'] = strtolower($setUserSession->name . $setUserSession->id);
 
             // Send a welcome mail to the newly registered user
-            $receipientMail = $this->setEmail();
-            $subject = "Registration Successful";
-            $messageBody = wordwrap("Registration was successful. Enjoy the HousingQuest platform from all of us at HousingQuest.", 70);
-            $message = "
-                <html>
-                <head>
-                    <title>Registration Successful</title>
-                </head>
-                <body>
-                    <p>
-                        {$messageBody}
-                    </p>
-                </body>
-                </html>
-            ";
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-            $headers .= "From: EasyBoard easyboard@gmail.com";
+            try {
+                $mail = new PHPMailer(true);
 
-            if (mail($receipientMail, $subject, $message, $headers)) {
-                displayMessage("Registration successful. You would be redirected to your dashboard shortly. Please check your mail for a confirmation message. If you can't find the mail please check your spam or trash folder.", "text-green-500");
-            } else {
-                displayMessage("Registration successful. You would be redirected to your dashboard shortly.", "text-green-500");
+                // Server settings
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'neilicatan3@gmail.com'; // Replace with your email
+                $mail->Password = 'ppgf axvm mbnb tszs';   // Replace with your email password or app password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                // Recipients
+                $mail->setFrom('easyboard@gmail.com', 'EasyBoard'); // Replace with your sender email and name
+                $mail->addAddress($email, $name);
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = "Registration Successful";
+                $mail->Body = "<html><head><title>Registration Successful</title></head><body><p>Registration was successful. Enjoy the HousingQuest platform from all of us at HousingQuest.</p></body></html>";
+
+                // Send email
+                $mail->send();
+                displayMessage("Registration successful. You would be redirected to your dashboard shortly. Please check your mail for a confirmation message. If you can't find the mail, please check your spam or trash folder.", "text-green-500");
+            } catch (Exception $e) {
+                displayMessage("Registration successful. Email could not be sent. Mailer Error: {$mail->ErrorInfo}", "text-green-500");
             }
 
             header("Refresh: 3, /admin", true, 301);

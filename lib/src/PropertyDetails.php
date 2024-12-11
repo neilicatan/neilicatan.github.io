@@ -3,6 +3,13 @@
 namespace app\src;
 
 use app\assets\DB;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './vendor/phpmailer/phpmailer/src/Exception.php';
+require './vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require './vendor/phpmailer/phpmailer/src/SMTP.php';
+
 
 class PropertyDetails
 {
@@ -172,6 +179,7 @@ class PropertyDetails
                 </div>
             </main>
 <?php
+
         endwhile;
     }
 
@@ -185,74 +193,74 @@ class PropertyDetails
     }
 
     public function sendRequestMessage(string $recepientEmail)
-    {
-        if (isset($_POST['submit-request'])) {
+{
+    if (isset($_POST['submit-request'])) {
 
-            // Check if a name was entered and displays the appropriate feedback
-            if (is_empty($this->setName())) {
-                displayMessage("<span class='font-bold'>Name</span> field is required.");
+        // Validate form inputs
+        $name = $this->setName();
+        $email = $this->setEmail();
+        $subject = $this->setSubject();
+        $messageBody = wordwrap($this->setMessage(), 70);
 
-                return;
-            }
+        if (empty($name)) {
+            displayMessage("<span class='font-bold'>Name</span> field is required.");
+            return;
+        }
+        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            displayMessage("<span class='font-bold'>Email</span> is required or invalid.");
+            return;
+        }
+        if (empty($subject)) {
+            displayMessage("<span class='font-bold'>Subject</span> field is required.");
+            return;
+        }
+        if (empty($messageBody)) {
+            displayMessage("Please type in your message content.", "text-rose-500");
+            return;
+        }
 
-            // Check if a email was entered and displays the appropriate feedback
-            if (is_empty($this->setEmail())) {
-                displayMessage("<span class='font-bold'>Email</span> field is required.");
+        try {
+            $mail = new PHPMailer(true);
 
-                return;
-            } else {
-                // Checks if the entered email is a valid one and displays the appropriate feedback
-                if (!filter_var($this->setEmail(), FILTER_VALIDATE_EMAIL)) {
-                    displayMessage("Invalid email format. Please use a valid email.");
+            // Server settings
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'neilicatan3@gmail.com';
+            $mail->Password = 'ppgf axvm mbnb tszs';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
 
-                    return;
-                }
-            }
+            // Recipients
+            $mail->setFrom($email, $name);
+            $mail->addAddress($recepientEmail);
+            $mail->addReplyTo($email, $name); // Add Reply-To header with sender's email and name
 
-            // Check if a subject was entered and displays the appropriate feedback
-            if (is_empty($this->setSubject())) {
-                displayMessage("<span class='font-bold'>Subject</span> field is required.");
-
-                return;
-            }
-
-            // Check if a message content was entered and displays the appropriate feedback
-            if (is_empty($this->setMessage())) {
-                displayMessage("Please type in your message content.", "text-rose-500");
-
-                return;
-            }
-
-            // Send a mail to the property owner
-            $subject = $this->setSubject();
-            $messageBody = wordwrap($this->setMessage(), 70);
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
             $buildingName = ucwords(str_replace('-', ' ', $this->propertyName));
             $message = "
                 <html>
                 <head>
-                    <title>{$this->setSubject()}</title>
+                    <title>{$subject}</title>
                 </head>
                 <body>
                     <p>
                         This is a message for {$buildingName} property with property ID of $this->propertyID.
-                        <br><br> Reply to {$this->setEmail()}.
+                        <br><br> Reply to {$email}.
                     </p>
                     {$messageBody}
                 </body>
                 </html>
             ";
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-            $headers .= "From: {$this->setName()} {$this->setEmail()}";
+            $mail->Body = $message;
 
-
-            if (mail($recepientEmail, $subject, $message, $headers)) {
-                displayMessage("Your message has been sent successfully. You would be contacted by the property owner as soon as possible. Thanks for using HousingQuest!");
-            } else {
-                displayMessage("Your message was not sent successfully. Please try again.");
-            }
-        } else {
-            displayMessage("Fill out the form below and the owner of the apartment would reach out to you.", "h3");
+            // Send email
+            $mail->send();
+            displayMessage("Your message has been sent successfully. You would be contacted by the property owner as soon as possible. Thanks for using EasyBoard!");
+        } catch (Exception $e) {
+            displayMessage("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
         }
     }
-}
+}}

@@ -3,6 +3,12 @@
 namespace app\src;
 
 use app\assets\DB;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require './vendor/phpmailer/phpmailer/src/Exception.php';
+require './vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require './vendor/phpmailer/phpmailer/src/SMTP.php';
 
 class ContactForm
 {
@@ -45,63 +51,59 @@ class ContactForm
     {
         if (isset($_POST['send-message'])) {
 
-            // Check if a name was entered and displays the appropriate feedback
-            if (is_empty($this->setName())) {
-                displayMessage("<span class='font-bold'>Name</span> field is required.", "text-rose-500");
-
-                return;
-            }
-
-            // Check if a email was entered and displays the appropriate feedback
-            if (is_empty($this->setEmail())) {
-                displayMessage("<span class='font-bold'>Email</span> field is required.", "text-rose-500");
-
-                return;
-            } else {
-                // Checks if the entered email is a valid one and displays the appropriate feedback
-                if (!filter_var($this->setEmail(), FILTER_VALIDATE_EMAIL)) {
-                    displayMessage("Invalid email format. Please use a valid email.", "text-rose-500");
-
-                    return;
-                }
-            }
-
-            // Check if a subject was entered and displays the appropriate feedback
-            if (is_empty($this->setSubject())) {
-                displayMessage("<span class='font-bold'>Subject</span> field is required.", "text-rose-500");
-
-                return;
-            }
-
-            // Check if a message content was entered and displays the appropriate feedback
-            if (is_empty($this->setMessage())) {
-                displayMessage("Please type in your message content.", "text-rose-500");
-
-                return;
-            }
-
-            // Send a welcome mail to the newly registered user
-            $receipientMail = "neilicatan@gmail.com";
+            // Validate form inputs
+            $name = $this->setName();
+            $email = $this->setEmail();
             $subject = $this->setSubject();
             $messageBody = wordwrap($this->setMessage(), 70);
-            $message = "
-                <html>
-                <head>
-                    <title>{$this->setSubject()}</title>
-                </head>
-                <body>
-                    {$messageBody}
-                </body>
-                </html>
-            ";
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-            $headers .= "From: {$this->setName()} {$this->setEmail()}";
 
-            if (mail($receipientMail, $subject, $message, $headers)) {
+            if (empty($name)) {
+                displayMessage("<span class='font-bold'>Name</span> field is required.", "text-rose-500");
+                return;
+            }
+
+            if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                displayMessage("<span class='font-bold'>Email</span> is required or invalid.", "text-rose-500");
+                return;
+            }
+
+            if (empty($subject)) {
+                displayMessage("<span class='font-bold'>Subject</span> field is required.", "text-rose-500");
+                return;
+            }
+
+            if (empty($messageBody)) {
+                displayMessage("Please type in your message content.", "text-rose-500");
+                return;
+            }
+
+            try {
+                $mail = new PHPMailer(true);
+
+                // Server settings
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'neilicatan3@gmail.com'; // Replace with your email
+                $mail->Password = 'ppgf axvm mbnb tszs';   // Replace with your email password or app password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                // Recipients
+                $mail->setFrom($email, $name);
+                $mail->addAddress('neilicatan@gmail.com'); // Replace with recipient email
+                $mail->addReplyTo($email, $name); // Add Reply-To header with sender's email and name
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = $subject;
+                $mail->Body = "<html><head><title>{$subject}</title></head><body>{$messageBody}</body></html>";   
+
+                // Send email
+                $mail->send();
                 displayMessage("Your message has been sent successfully. Please be assured that we would address the issues raised ASAP!", "text-green-500");
-            } else {
-                displayMessage("Your message was not sent successfully. Please try again.", "text-rose-500");
+            } catch (Exception $e) {
+                displayMessage("Message could not be sent. Mailer Error: {$mail->ErrorInfo}", "text-rose-500");
             }
         } else {
             displayMessage("Get In Touch With Us", "text-center header text-2xl", "h3");
