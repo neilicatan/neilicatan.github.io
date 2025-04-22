@@ -10,17 +10,15 @@ $indexHouses = new Index();
     <div class="md:w-3/4 lg:w-3/5 md:mx-auto">
         <!-- Logo Section -->
         <div class="mb-0">
-            <img src="./assets/img/logo-light.png" alt="EasyBoard Logo" class="mx-auto w-32 lg:w-48">
+           
         </div>
 
         <!-- Header and Text -->
         <div class="mt-0">
             <h1 class="header text-3xl leading-tight">
-                EasyBoard &mdash; Taking the pain out of seeking accommodation
+                Kabacan Boarding House Finder
             </h1>
-            <p class="leading-tight">
-                A smart and easy way to sell and rent properties
-            </p>
+            
         </div>
     </div>
 </div>
